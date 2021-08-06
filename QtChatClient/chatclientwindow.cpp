@@ -28,6 +28,7 @@ ChatClientWindow::ChatClientWindow(QWidget *parent)
     connect(ui->pushButton_sendMsg, SIGNAL(clicked()), this, SLOT(slot_sendMsg()));
     connect(ui->pushButton_selectFile, SIGNAL(clicked()), this, SLOT(slot_clickSelectFile()));
     connect(ui->pushButton_sendFile, SIGNAL(clicked()), this, SLOT(slot_clickSendFile()));
+    int cc = 0;
 }
 
 ChatClientWindow::~ChatClientWindow()
