@@ -1,0 +1,46 @@
+name: build-ubuntu
+on:
+  push:
+    branches:
+      -master
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+
+jobs:
+  build-test:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-16.04]
+        
+    steps:
+    - name: Update system
+      id: UpdateSystem
+      run: sudo apt-get update --fix-missing -y
+    - name: Install g++
+      id: InstallGxx
+      run: sudo apt-get install gcc g++ -y
+    - name: Install gl1
+      id: Installgl1
+      run: sudo apt-get install libgl1-mesa-dev -y
+    - name: Install make
+      id: InstallMake
+      run: sudo apt-get install make -y
+    - name: Install Qt
+      id: InstallQt
+      run: sudo apt-get install qt5-* libqt5websockets5* libqt5serialport5* libqt5bluetooth5* libqt5charts5* -y
+
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Build project
+      id: BuildPorject
+      run: qmake && make
